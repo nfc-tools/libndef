@@ -20,15 +20,31 @@
 # $Date$
 ##
 
+NDEF_INCDIR = ../../include/lib
+NDEF_LIBDIR = ../../lib
+
+PUBLIC_HEADERS = $$NDEF_INCDIR/libndef_global.h \
+    $$NDEF_INCDIR/ndefrecord.h \
+    $$NDEF_INCDIR/ndefmessage.h \
+    $$NDEF_INCDIR/ndefrecordtype.h
+
 QT -= gui
 TARGET = ndef
 TEMPLATE = lib
 DEFINES += NDEF_LIBRARY
-HEADERS += libndef_global.h \
-    ndefrecord.h \
-    ndefmessage.h \
-    ndefrecordtype.h
-DESTDIR = ../../lib
+INCLUDEPATH += $$NDEF_INCDIR
+HEADERS += $$PUBLIC_HEADERS
 SOURCES += ndefrecord.cpp \
     ndefmessage.cpp \
     ndefrecordtype.cpp
+DESTDIR = $$NDEF_LIBDIR
+
+unix: {
+    # install
+    target.path = /usr/local/lib
+    INSTALLS += target
+
+    incfiles.path = /usr/local/include/ndef
+    incfiles.files = $$PUBLIC_HEADERS
+    INSTALLS += incfiles
+}
