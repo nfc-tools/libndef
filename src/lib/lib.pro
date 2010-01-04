@@ -41,10 +41,13 @@ DESTDIR = $$NDEF_LIBDIR
 
 unix: {
     # install
-    target.path = /usr/local/lib
+    isEmpty(PREFIX) {
+      PREFIX = /usr/local
+    }
+    target.path = $$PREFIX/lib
     INSTALLS += target
 
-    incfiles.path = /usr/local/include/ndef
+    incfiles.path = $$PREFIX/include/ndef
     incfiles.files = $$PUBLIC_HEADERS
     INSTALLS += incfiles
 }
