@@ -1,0 +1,15 @@
+libndef X.X.X.X
+===============
+
+= Introduction =
+
+This is a C++ library for use in reading and writing messages based on
+"NDEF (NFC Data Exchange Format) Specification".
+
+For more info please visit: http://www.nfc-forum.org/specs/spec_list/
+
+It depends on "QtCore" module (from "Qt Framework", visit: http://qt.nokia.com).
+
+= Installation =
+
+Follow the instructions in the INSTALL file. 
