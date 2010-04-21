@@ -20,6 +20,7 @@
 # $Date$
 ##
 
+VERSION=1.0.0.5
 NDEF_INCDIR = include/ndef
 NDEF_SRCDIR = libndef
 
@@ -49,4 +50,11 @@ unix: {
     incfiles.path = $$PREFIX/include/ndef
     incfiles.files = $$PUBLIC_HEADERS
     INSTALLS += incfiles
+
+    # install pkg-config file (libndef.pc)
+    CONFIG += create_pc create_prl
+    QMAKE_PKGCONFIG_REQUIRES = QtCore
+    QMAKE_PKGCONFIG_LIBDIR = $$target.path
+    QMAKE_PKGCONFIG_INCDIR = $$incfiles.path
+    QMAKE_PKGCONFIG_DESTDIR = pkgconfig
 }
