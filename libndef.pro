@@ -20,8 +20,8 @@
 # $Date$
 ##
 
-NDEF_INCDIR = ../../include/lib
-NDEF_LIBDIR = ../../lib
+NDEF_INCDIR = include/ndef
+NDEF_SRCDIR = libndef
 
 PUBLIC_HEADERS = $$NDEF_INCDIR/libndef_global.h \
     $$NDEF_INCDIR/ndefrecord.h \
@@ -34,13 +34,12 @@ TEMPLATE = lib
 DEFINES += NDEF_LIBRARY
 INCLUDEPATH += $$NDEF_INCDIR
 HEADERS += $$PUBLIC_HEADERS
-SOURCES += ndefrecord.cpp \
-    ndefmessage.cpp \
-    ndefrecordtype.cpp
-DESTDIR = $$NDEF_LIBDIR
+SOURCES += $$NDEF_SRCDIR/ndefrecord.cpp \
+    $$NDEF_SRCDIR/ndefmessage.cpp \
+    $$NDEF_SRCDIR/ndefrecordtype.cpp
 
 unix: {
-    # install
+    # install library and headers
     isEmpty(PREFIX) {
       PREFIX = /usr/local
     }

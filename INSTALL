@@ -13,7 +13,6 @@ Build on Unix systems
 If you want to install the library with the default prefix (/usr/local), simply
 execute these commands:
 
- cd src/
  qmake
  make
  sudo make install
