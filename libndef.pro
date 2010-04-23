@@ -20,7 +20,7 @@
 # $Date$
 ##
 
-VERSION=1.0.0.4
+VERSION=1.0.1
 NDEF_INCDIR = include/ndef
 NDEF_SRCDIR = libndef
 
