@@ -34,9 +34,9 @@ class LIBNDEFSHARED_EXPORT Tlv
 public:
     enum TlvType
     {
-        Null            = 0x00,
-        NDEF            = 0x03,
-        Terminator      = 0xFE
+        Null        = 0x00,
+        NDEF        = 0x03,
+        Terminator  = 0xFE
     };
 
 protected:
