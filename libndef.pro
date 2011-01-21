@@ -20,14 +20,15 @@
 # $Date$
 ##
 
-VERSION=1.0.1
+VERSION=1.1.0
 NDEF_INCDIR = include/ndef
 NDEF_SRCDIR = libndef
 
 PUBLIC_HEADERS = $$NDEF_INCDIR/libndef_global.h \
     $$NDEF_INCDIR/ndefrecord.h \
     $$NDEF_INCDIR/ndefmessage.h \
-    $$NDEF_INCDIR/ndefrecordtype.h
+    $$NDEF_INCDIR/ndefrecordtype.h \
+    $$NDEF_INCDIR/tlv.h
 
 QT -= gui
 TARGET = ndef
@@ -37,7 +38,8 @@ INCLUDEPATH += $$NDEF_INCDIR
 HEADERS += $$PUBLIC_HEADERS
 SOURCES += $$NDEF_SRCDIR/ndefrecord.cpp \
     $$NDEF_SRCDIR/ndefmessage.cpp \
-    $$NDEF_SRCDIR/ndefrecordtype.cpp
+    $$NDEF_SRCDIR/ndefrecordtype.cpp \
+    $$NDEF_SRCDIR/tlv.cpp
 
 unix: {
     # install library and headers
