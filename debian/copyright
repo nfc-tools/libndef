@@ -1,0 +1,24 @@
+This work was packaged for Debian by:
+
+    Card Tech <info@card-tech.it> on Tue, 15 Feb 2011 13:06:52 +0100
+
+It was downloaded from <http://code.google.com/p/libndef/>
+
+Upstream Author(s):
+
+    Emanuele Bertoldi <e.bertoldi@card-tech.it>
+
+Copyright:
+
+    <Copyright (C) 2011 Emanuele Bertoldi>
+
+License:
+
+    GNU LESSER GENERAL PUBLIC LICENSE
+
+The Debian packaging is:
+
+    Copyright (C) 2011 Emanuele Bertoldi <e.bertoldi@card-tech.it>
+
+and is licensed under the LGPL version 2.1, 
+see `/usr/share/common-licenses/LGPL-2.1'.

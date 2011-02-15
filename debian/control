@@ -1,0 +1,29 @@
+Source: libndef
+Priority: extra
+Maintainer: Card Tech <info@card-tech.it>
+Build-Depends: debhelper (>= 7), libqt4-dev
+Standards-Version: 3.8.4
+Section: libs
+Homepage: http://code.google.com/p/libndef/
+
+Package: libndef-dev
+Section: libdevel
+Architecture: any
+Depends: ${misc:Depends}, libndef (= ${binary:Version})
+Description: a C++ library for NDEF specification
+ This is a C++ library for use in reading and writing messages based on NDEF
+ (NFC Data Exchange Format) Specification.
+ .
+ For more info please visit: http://www.nfc-forum.org/specs/spec_list/
+ .
+ This package contains the development files.
+
+Package: libndef
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: a C++ library for NDEF specification
+ This is a C++ library for use in reading and writing messages based on NDEF
+ (NFC Data Exchange Format) Specification.
+ .
+ For more info please visit: http://www.nfc-forum.org/specs/spec_list/
