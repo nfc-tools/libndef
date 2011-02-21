@@ -1,7 +1,7 @@
 Source: libndef
 Priority: extra
 Maintainer: Card Tech <info@card-tech.it>
-Build-Depends: debhelper (>= 7), libqt4-dev
+Build-Depends: debhelper (>= 7), libqt4-dev, qt4-qmake
 Standards-Version: 3.8.4
 Section: libs
 Homepage: http://code.google.com/p/libndef/
