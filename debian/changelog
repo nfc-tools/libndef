@@ -1,4 +1,10 @@
-libndef (1.1.0-1) unstable; urgency=low
+libndef (1.1.1-1) unstable; urgency=low
+
+  * Improved length handling of TLV records.
+
+ -- Card Tech <info@card-tech.it>  Tue, 21 Feb 2011 13:03:52 +0100
+ 
+libndef (1.1.0-2) unstable; urgency=low
 
   * Initial release
 
