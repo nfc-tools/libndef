@@ -79,6 +79,8 @@ QByteArray Tlv::toByteArray() const
             buffer.append(m_type);
             quint16 length = this->length();
 
+            qDebug() << length;
+
             if (length <= 0xFE)
             {
                 buffer.append((quint8)length);
@@ -86,10 +88,11 @@ QByteArray Tlv::toByteArray() const
             else
             {
                 buffer.append((quint8)0xFF);
-                buffer.append(length);
+                buffer.append((quint8)(length >> 8));
+                buffer.append((quint8)(length & 0xFF));
             }
 
-            if (length > 0)
+            if (this->length() > 0)
                 buffer.append(m_value);
         }
         break;
@@ -130,7 +133,9 @@ TlvList Tlv::fromByteArray(const QByteArray& data, quint64 offset)
                     quint16 length = buffer.at(index);
                     ++index;
 
-                    if (length > 0xfe)
+                    qDebug() << length;
+
+                    if (length > 0xFE)
                     {
                         length = 0;
 
