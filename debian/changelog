@@ -1,11 +1,17 @@
+libndef (1.1.2-1) unstable; urgency=low
+
+  * Fixed pattern match in "NDEFRecord::createUriRecord".
+
+ -- Card Tech <developers@card-tech.it>  Thu, 22 Sep 2011 10:45:52 +0100
+
 libndef (1.1.1-1) unstable; urgency=low
 
   * Improved length handling of TLV records.
 
- -- Card Tech <info@card-tech.it>  Tue, 21 Feb 2011 13:03:52 +0100
+ -- Card Tech <developers@card-tech.it>  Tue, 21 Feb 2011 13:03:52 +0100
  
 libndef (1.1.0-2) unstable; urgency=low
 
   * Initial release
 
- -- Card Tech <info@card-tech.it>  Tue, 15 Feb 2011 13:06:52 +0100
+ -- Card Tech <developers@card-tech.it>  Tue, 15 Feb 2011 13:06:52 +0100
