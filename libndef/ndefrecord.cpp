@@ -394,7 +394,6 @@ NDEFRecord NDEFRecord::createUriRecord(const QString& uri)
         {
             uri_identifier_size = size;
             uri_identifier = i+1;
-            break;
         }
     }
 
