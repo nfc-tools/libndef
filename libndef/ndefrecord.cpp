@@ -24,6 +24,7 @@
 #include <QtCore/QBuffer>
 #include <QtCore/QDataStream>
 #include <QtCore/QStringList>
+#include <QtCore/QTextCodec>
 
 NDEFRecord::NDEFRecord()
     :   m_chuncked(false)
