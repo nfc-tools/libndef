@@ -322,7 +322,20 @@ NDEFRecord NDEFRecord::createTextRecord(const QString& text, const QString& loca
     status_byte |= (codec << 8);
     payload.append(status_byte);
     payload.append(locale.left(locale_size));
-    payload.append(text);
+    if (codec == NDEF_UTF16)
+    {
+        // NFC-Forum Text RTD says:
+        // 3.4 UTF-16 Byte Order
+        //  When generating a Text record, the BOM MAY be omitted. If the BOM is omitted,
+        //  the byte order shall be big-endian (UTF-16 BE).
+        QTextCodec *codec = QTextCodec::codecForName("UTF-16BE");
+        QByteArray encoded_text = codec->fromUnicode(text);
+        payload.append(QByteArray(encoded_text));
+    }
+    else
+    {
+        payload.append(text.toUtf8());
+    }
     record.setPayload(payload);
 
     return record;
