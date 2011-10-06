@@ -40,8 +40,8 @@ public:
 
     enum NDEFRecordTextCodec
     {
-        NDEF_UTF8,
-        NDEF_UTF16
+        NDEF_UTF8 = 0x00,
+        NDEF_UTF16 = 0x80
     };
 
     enum NDEFRecordAction

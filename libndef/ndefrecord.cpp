@@ -318,9 +318,9 @@ NDEFRecord NDEFRecord::createTextRecord(const QString& text, const QString& loca
 
     // 2) Payload.
     QByteArray payload;
-    char status_byte = 0;
+    unsigned char status_byte = 0;
     status_byte |= locale_size;
-    status_byte |= (codec << 8);
+    status_byte |= (unsigned char)codec;
     payload.append(status_byte);
     payload.append(locale.left(locale_size));
     if (codec == NDEF_UTF16)
