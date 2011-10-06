@@ -412,7 +412,7 @@ NDEFRecord NDEFRecord::createUriRecord(const QString& uri)
     }
 
     payload.append(uri_identifier);
-    payload.append(uri.right(uri_size - uri_identifier_size));
+    payload.append(uri.right(uri_size - uri_identifier_size).toUtf8());
     record.setPayload(payload);
 
     return record;
