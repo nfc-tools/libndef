@@ -524,19 +524,9 @@ NDEFRecord NDEFRecord::createSmartPosterRecord(const QString& uri, const QList<N
     int record_count = records.count();
     for (int i = 0; i < record_count; i++)
     {
-        // Add only valid records.
         NDEFRecord sp_record = records.at(i);
-        NDEFRecordType type = sp_record.type();
-        if (type.id() == NDEFRecordType::NDEF_MIME
-            || type == NDEFRecordType::spActionRecordType()
-            || type == NDEFRecordType::spSizeRecordType()
-            || type == NDEFRecordType::spTypeRecordType()
-            || type == NDEFRecordType::textRecordType())
-        {
-
-            int flags = (i == 0) ? NDEFRecord::NDEF_MB : 0;
-            payload.append(sp_record.toByteArray(flags));
-        }
+        int flags = (i == 0) ? NDEFRecord::NDEF_MB : 0;
+        payload.append(sp_record.toByteArray(flags));
     }
     int flags = (record_count == 0) ? (NDEFRecord::NDEF_MB | NDEFRecord::NDEF_ME) : NDEFRecord::NDEF_ME;
     payload.append(NDEFRecord::createUriRecord(uri).toByteArray(flags));
