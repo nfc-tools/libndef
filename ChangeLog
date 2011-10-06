@@ -1,0 +1,19 @@
+libndef 1.1.3
+
+  * Fix UTF-8 and UTF-16 encoding for NDEFRecord::createTextRecord()
+
+libndef 1.1.2
+-------------
+
+  * Fixed pattern match in "NDEFRecord::createUriRecord".
+
+libndef 1.1.1
+-------------
+
+  * Improved length handling of TLV records.
+
+libndef 1.1.0
+-------------
+
+  * Initial release
+
