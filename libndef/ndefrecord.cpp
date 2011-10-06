@@ -571,7 +571,7 @@ NDEFRecord NDEFRecord::createSpTypeRecord(const QString& type)
     record.setType(NDEFRecordType::spTypeRecordType());
 
     // 2) Payload.
-    record.setPayload(type.toAscii());
+    record.setPayload(type.toUtf8());
 
     return record;
 }
