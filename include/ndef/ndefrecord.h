@@ -102,7 +102,6 @@ public:
 public:
     static NDEFRecord createTextRecord(const QString& text, const QString& locale, NDEFRecordTextCodec codec = NDEFRecord::NDEF_UTF8);
     static QByteArray textLocale(const QByteArray& payload);
-    static QString textText(const QByteArray& payload);
 
     // URI records.
 public:
