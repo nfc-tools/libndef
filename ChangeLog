@@ -1,3 +1,8 @@
+libndef 1.2.0
+-------------
+
+  * New a static method to extract Text field from TextRecord
+
 libndef 1.1.3
 -------------
 

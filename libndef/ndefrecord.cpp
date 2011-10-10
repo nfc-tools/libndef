@@ -348,6 +348,24 @@ QByteArray NDEFRecord::textLocale(const QByteArray& payload)
     return payload.mid(1, locale_length);
 }
 
+QString NDEFRecord::textText(const QByteArray& payload)
+{
+    const unsigned char status_byte = payload.at(0);
+    const unsigned char locale_length = status_byte & 0x1f;
+    const QByteArray encoded_text = payload.right(payload.size() - (1 + locale_length));
+    if (status_byte & NDEF_UTF16) // UTF-16 case
+    {
+        QTextCodec *codec = QTextCodec::codecForName("UTF-16BE");
+        QString text = codec->toUnicode(encoded_text);
+        return text;
+    }
+    else
+    {
+        return QString::fromUtf8 (encoded_text.data(), encoded_text.size());
+    }
+}
+
+
 NDEFRecord NDEFRecord::createUriRecord(const QString& uri)
 {
     NDEFRecord record;
