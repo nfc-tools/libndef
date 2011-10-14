@@ -655,6 +655,175 @@ NDEFRecord NDEFRecord::createGenericControlRecord(quint8 config_byte, const NDEF
     return record;
 }
 
+/* A Generic Control record MUST contain one and only one Target record.
+A Target record contains an instance of a Text RTD record or an URI RTD record
+
+    Offset  |Length   |Explanation
+    0       |1        |NDEF header.
+    1       |1        |Record Name Length
+    2       |1        |Length of the Target data
+    3       |1        |The record name of Target record (0x74)
+    4       |1        |NDEF header.
+    5       |1        |Record Name Length (because record name is "U" or "T")
+    6       |1        |Length of the Target data
+    7       |1        |The record name
+    8       |1        |URI identifier code file or status byte 
+    9       |t_length |Value of Target
+    ...
+*/
+NDEFRecord NDEFRecord::getGcTargetRecord(const NDEFRecord& record)
+{
+    NDEFRecord targetRecord;
+    if (record.type().name() == "Gc") {
+        QList<int> targetList;
+        QStringList targetRecordName;
+        targetRecordName << "U" << "T";
+        for (int i = 0; i < record.payloadLength(); i++) {
+            //NDEF Header
+            QString NDEFHeader =QString(record.payload().at(i));
+            if (NDEFHeader.at(0) == 0xD1){
+                //Target record
+                if ((record.payload().at(i+1) == 0x01) &&(record.payload().at(i+3) == 0x74)) {
+                    targetList << i;
+                }
+            }
+        }
+        // Check there is one and only one target record
+        if (targetList.size() == 1) {
+            int element = targetList.at(0);
+            int targetLength = (int) (record.payload().at(element + 6));
+            QString recordName = QString(record.payload().at(element + 7));
+            if (targetRecordName.contains(recordName)) {  
+                QString value = "";
+                for (int i = 0; i < targetLength; i++) {
+                    value += record.payload().at(element + 8 + i);
+                }
+                if (recordName == "U") {                    
+                    targetRecord = NDEFRecord(value.toUtf8(), NDEFRecordType::uriRecordType());
+                } else {
+                    targetRecord = NDEFRecord(value.toUtf8(), NDEFRecordType::textRecordType());
+                }
+            }
+        }
+    }    
+    return targetRecord;
+}
+
+/*A Generic Control record MAY contain one Action record. Generic Control records MUST NOT
+contain more than one Action record.  
+        Offset  |Length   |Explanation                                           OR         Offset  |Length   |Explanation       
+        0       |1        |NDEF header.                                                     0       |1        |NDEF header.
+        1       |1        |Record Name Length                                               1       |1        |Record Name Length
+        2       |1        |Length of the Target data                                        2       |1        |Length of the Target data
+        3       |1        |The record name of Action record (0x61)                          3       |1        |The record name of Action record (0x61)
+        4       |1        |Action Flag (0x00)                                               4       |1        |Action Flag (0x01)
+        5       |1        |NDEF header.                                                     5       |1        |Value of Action
+        6       |1        |Record Name Length
+        7       |1        |Length of the Target data
+        8       |1        |The record name
+        9       |1        |URI identifier code file or status byte 
+        10      |a_length |Value of Action
+        ...
+*/
+NDEFRecord NDEFRecord::getGcActionRecord(const NDEFRecord& record)
+{
+    NDEFRecord actionRecord;
+    if (record.type().name() == "Gc") {
+        QList<int> actionList;
+        QStringList targetRecordName;
+        targetRecordName << "U" << "T";
+        for (int i = 0; i < record.payloadLength(); i++) {
+            //NDEF Header
+            QString NDEFHeader =QString(record.payload().at(i));
+            if (NDEFHeader.at(0) == 0xD1){
+                //Target record
+                if ((record.payload().at(i+1) == 0x01) &&(record.payload().at(i+3) == 0x61)) {
+                    actionList << i;
+                }
+            }
+        }
+        // Check there is one and only one action record
+        if (actionList.size() == 1) {
+            int element = actionList.at(0);
+            
+            QString actionFlag =QString(record.payload().at(element + 4));            
+            // check Action flag
+            if (actionFlag.at(0) == 0x00) {
+                int targetLength = (int) (record.payload().at(element + 7));
+                QString recordName = QString(record.payload().at(element + 8));
+                if (targetRecordName.contains(recordName)) {  
+                    QString value = "";
+                    for (int i = 0; i < targetLength; i++) {
+                        value += record.payload().at(element + 9 + i);
+                    }
+                    if (recordName == "U") {                    
+                        actionRecord = NDEFRecord(value.toUtf8(), NDEFRecordType::uriRecordType());
+                    } else {
+                        actionRecord = NDEFRecord(value.toUtf8(), NDEFRecordType::textRecordType());
+                    }
+                }
+            } else {
+                int value = (int) (record.payload().at(element + 5));
+                actionRecord = NDEFRecord::createGcActionRecord(NDEFRecord::NDEFRecordAction(value));
+            }              
+        }
+    }
+    return actionRecord;
+}
+
+/*
+        Offset  |Length   |Explanation 
+        0       |1        |NDEF header.
+        1       |1        |Record Name Length
+        2       |1        |Length of the Target data
+        3       |1        |The record name of Data record (0x64)
+        4       |1        |NDEF header.
+        5       |1        |Record Name Length
+        6       |1        |Length of the Target data
+        7       |1        |The record name
+        8       |1        |URI identifier code file or status byte 
+        9       |d_length |Value of Data
+        ...
+*/
+NDEFRecord NDEFRecord::getGcDataRecord(const NDEFRecord& record)
+{
+    NDEFRecord dataRecord;
+    if (record.type().name() == "Gc") {
+        QList<int> dataList;
+        QStringList targetRecordName;
+        targetRecordName << "U" << "T";
+        for (int i = 0; i < record.payloadLength(); i++) {
+            //NDEF Header
+            QString NDEFHeader =QString(record.payload().at(i));
+            if (NDEFHeader.at(0) == 0xD1){
+                //Target record
+                if ((record.payload().at(i+1) == 0x01) &&(record.payload().at(i+3) == 0x64)) {
+                    dataList << i;
+                }
+            }
+        }
+        // Check there is one and only one data record
+        if (dataList.size() == 1) {
+            int element = dataList.at(0);
+
+            int targetLength = (int) (record.payload().at(element + 6));
+            QString recordName = QString(record.payload().at(element + 7));
+            if (targetRecordName.contains(recordName)) {  
+                QString value = "";
+                for (int i = 0; i < targetLength; i++) {
+                    value += record.payload().at(element + 8 + i);
+                }
+                if (recordName == "U") {                    
+                    dataRecord = NDEFRecord(value.toUtf8(), NDEFRecordType::uriRecordType());
+                } else {
+                    dataRecord = NDEFRecord(value.toUtf8(), NDEFRecordType::textRecordType());
+                }
+            }             
+        }
+    }
+    return dataRecord;
+}
+
 NDEFRecord NDEFRecord::createGcTargetRecord(const NDEFRecord& target)
 {
     if (target.type() != NDEFRecordType::textRecordType()

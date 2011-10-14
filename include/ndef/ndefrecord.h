@@ -123,7 +123,9 @@ public:
 public:
     static NDEFRecord createGenericControlRecord(quint8 config_byte, const NDEFRecord& target, NDEFRecordAction action, const NDEFRecord& data = NDEFRecord());
     static NDEFRecord createGenericControlRecord(quint8 config_byte, const NDEFRecord& target, const NDEFRecord& action = NDEFRecord(), const NDEFRecord& data = NDEFRecord());
-
+    static NDEFRecord getGcTargetRecord(const NDEFRecord& record);
+    static NDEFRecord getGcActionRecord(const NDEFRecord& record);
+    static NDEFRecord getGcDataRecord(const NDEFRecord& record);
 protected:
     static NDEFRecord createGcTargetRecord(const NDEFRecord& record);
     static NDEFRecord createGcActionRecord(const NDEFRecord& record);
