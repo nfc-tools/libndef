@@ -2,6 +2,7 @@ libndef 1.2.0
 -------------
 
   * New a static method to extract Text field from TextRecord
+  * Two new tools: ndef-encode and ndef-decode
 
 libndef 1.1.3
 -------------
