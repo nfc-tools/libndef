@@ -264,7 +264,7 @@ NDEFRecord NDEFRecord::fromByteArray(const QByteArray& data, int offset)
 
         // 3) Type length.
         stream >> byte;
-        quint8 type_length = byte;
+        quint8 type_length = (quint8)byte;
 
         // 3) Payload length.
         quint32 payload_length = 0;
@@ -277,15 +277,19 @@ NDEFRecord NDEFRecord::fromByteArray(const QByteArray& data, int offset)
         {
             stream >> payload_length;
         }
-
-        // 4) Skip type bytes.
-        stream.skipRawData(type_length);
-
+        
         // 5) ID.
+        quint8 id_length = 0;
         if (il)
         {
             stream >> byte;
-            quint8 id_length = byte;
+            id_length = (quint8)byte;
+        }
+        
+        // 4) Skip type bytes.
+        stream.skipRawData(type_length);
+        if (il)
+        {
             record.setId(buffer.read(id_length));
         }
 
