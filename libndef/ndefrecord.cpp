@@ -193,7 +193,9 @@ QByteArray NDEFRecord::toByteArray(int flags) const
             else
             {
                 out << (quint32)m_payload.count();
-                out << (quint8)m_id.count();
+                if (m_id.count() != 0) {
+                    out << (quint8)m_id.count();
+                }
                 byte_array.append(type_name);
                 byte_array.append(m_id);
                 byte_array.append(m_payload);
