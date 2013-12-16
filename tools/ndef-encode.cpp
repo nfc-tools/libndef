@@ -88,7 +88,11 @@ int main(int argc, char *argv[])
     {
         if (arguments.at(i).at(0) == '-')
         {
+#if (QT_VERSION < QT_VERSION_CHECK(5, 0, 0))
             char option = arguments.at(i).at(1).toAscii();
+#else
+            char option = arguments.at(i).at(1).toLatin1();
+#endif
             switch (option)
             {
             case 't': // TextRecord
@@ -141,7 +145,11 @@ int main(int argc, char *argv[])
                 break;
             case 's': // SmartPosterRecord
             {
+ #if (QT_VERSION < QT_VERSION_CHECK(5, 0, 0))
                 char sp_option = arguments.at(i).at(2).toAscii();
+#else
+                char sp_option = arguments.at(i).at(2).toLatin1();
+#endif
                 switch (sp_option)
                 {
                 case 'p': // -sp: open a new SmartPoster

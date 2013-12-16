@@ -298,9 +298,14 @@ NDEFRecord NDEFRecord::createMimeRecord(const QString& mime_type, const QByteArr
 {
     NDEFRecord record;
 
+#if (QT_VERSION < QT_VERSION_CHECK(5, 0, 0))
     // 1) Type.
     record.setType(NDEFRecordType(NDEFRecordType::NDEF_MIME, mime_type.toAscii()));
-
+#else
+    // 1) Type.
+    record.setType(NDEFRecordType(NDEFRecordType::NDEF_MIME, mime_type.toLatin1()));
+#endif
+    
     // 2) Payload.
     record.setPayload(payload);
 
@@ -476,8 +481,13 @@ QByteArray NDEFRecord::uriProtocol(const QByteArray& payload)
     uri_identifiers.append("urn:nfc:");
 
     int protocol_index = payload.at(0);
-    if (protocol_index > 0 && protocol_index <= uri_identifiers.count())
+    if (protocol_index > 0 && protocol_index <= uri_identifiers.count()){
+#if (QT_VERSION < QT_VERSION_CHECK(5, 0, 0))
         return uri_identifiers.at(protocol_index-1).toAscii();
+#else
+        return uri_identifiers.at(protocol_index-1).toLatin1();
+#endif
+    }
 
     return QByteArray();
 }
