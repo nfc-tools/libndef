@@ -24,7 +24,8 @@ option during the qmake step (e.g. /usr):
 
 Build on Windows systems
 ========================
-TODO
+ qmake
+ mingw32-make   //MinGW Toolchain
 
 Build on MacOS systems
 ======================
