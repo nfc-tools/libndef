@@ -2,7 +2,7 @@
 # This file is part of the libndef project.
 #
 # Copyright (C) 2009, Emanuele Bertoldi (Card Tech srl).
-# Copyright (C) 2011, Romuald Conty (I.L.4 P.).
+# Copyright (C) 2011, Romuald Conty
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published by the
@@ -16,9 +16,6 @@
 #
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
-#
-# $Revision$
-# $Date$
 ##
 
 TEMPLATE = subdirs
