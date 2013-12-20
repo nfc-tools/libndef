@@ -80,7 +80,7 @@ quint8 NDEFRecord::flags() const
 
 bool NDEFRecord::isShort() const
 {
-    return ((m_payload.count() < 256) && (m_id.isEmpty()));
+    return (m_payload.count() < 256);
 }
 
 void NDEFRecord::setChuncked(bool flag)
@@ -165,7 +165,11 @@ QByteArray NDEFRecord::toByteArray(int flags) const
         {
             out << (quint8)0;
             out << (quint8)0;
-            out << (quint8)0;
+
+            // ID length field is present, only when it's non-zero
+            if (m_id.count() != 0){
+                out << (quint8)0;
+            }
         }
         break;
         
@@ -186,13 +190,21 @@ QByteArray NDEFRecord::toByteArray(int flags) const
             out << (quint8)type_name.count();
             if (this->isShort())
             {
+                // Payload length
                 out << (quint8)m_payload.count();
+                // ID Length (optional)
+                if (m_id.count() != 0) {
+                    out << (quint8)m_id.count();
+                }
                 byte_array.append(type_name);
+                byte_array.append(m_id);
                 byte_array.append(m_payload);
             }
             else
             {
+                // Payload length
                 out << (quint32)m_payload.count();
+                // ID Length (optional)
                 if (m_id.count() != 0) {
                     out << (quint8)m_id.count();
                 }
@@ -206,7 +218,7 @@ QByteArray NDEFRecord::toByteArray(int flags) const
         // NDEF_Unknown, NDEF_Unchanged:
         // -- Type length = 0 (8 bits)
         // -- Payload length = 32 bits
-        // -- ID length = N bits
+        // -- ID length = N bits (optional)
         // -- No type
         // -- ID = (id length) bytes
         // -- Payload = (payload length) bytes
@@ -215,7 +227,9 @@ QByteArray NDEFRecord::toByteArray(int flags) const
         {
             out << (quint8)0;
             out << (quint32)m_payload.count();
-            out << (quint32)m_id.count();
+            if (m_id.count() != 0) {
+                out << (quint8)m_id.count();
+            }
             byte_array.append(m_id);
             byte_array.append(m_payload);
         }
