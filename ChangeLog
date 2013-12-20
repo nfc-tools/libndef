@@ -1,6 +1,17 @@
 libndef 1.2.0
 -------------
 
+  * Fix Short Record and ID implementation
+  * Fix NDEFRecord::isShort, NDEF ID is not concerned
+  * Fix NDEFRecord::toByteArray(), ID length field is only presented when ID is none zero
+                                  ID is independent of SR(short record)
+  * Fix build on Windows
+  * Fix improper handling of IL flag while parsing from byte array
+  * Fix ID_LENGTH (is only present when IL is set)
+
+  * Add QT5 support
+
+  * NDEFRecord: add some functions to decode GcRecord. ATM only URI and text record are handled
   * New a static method to extract Text field from TextRecord
   * Two new tools: ndef-encode and ndef-decode
 
