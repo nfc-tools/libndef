@@ -17,6 +17,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+#include <QTextStream>
+#include <QFile>
+#include <QDataStream>
+
 #include <QtCore/QCoreApplication>
 #include <QDebug>
 #include <QStringList>
