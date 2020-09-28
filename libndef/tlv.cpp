@@ -125,7 +125,7 @@ TlvList Tlv::fromByteArray(const QByteArray& data, quint64 offset)
             {
                 if ((count - index) > 0)
                 {
-                    quint16 length = buffer.at(index);
+                    quint16 length = (quint8)buffer.at(index);
                     ++index;
 
                     if (length > 0xFE)
